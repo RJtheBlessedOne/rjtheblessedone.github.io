@@ -18,7 +18,7 @@
   h1 {
     font-size: 42px;
     color: #ff3399;
-    text-shadow: 3px 3px 0 #003366, 0 0 12px #ff00ff;
+    text-shadow: 3px 3px 0 #3d95ec, 0 0 12px #ff00ff;
     letter-spacing: 3px;
     text-align: center;
     margin: 10px 0;
@@ -29,7 +29,8 @@
     text-shadow: 0 0 6px #ffff00;
   }
   h3 { color: #66ffcc; font-size: 18px; }
-/* Navigation */
+
+  /* Navigation */
   nav.hub {
     border: 2px outset #66ffcc;
     background: #110022;
@@ -37,8 +38,27 @@
     text-align: center;
     margin-bottom: 12px;
   }
-/* page views */
-  .page { display: none; }
+  nav.hub ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav.hub li {
+    display: inline-block;
+    margin: 4px 8px;
+  }
+  nav.hub a {
+    color: #66ffcc;
+    text-decoration: none;
+  }
+  nav.hub a:hover,
+  nav.hub a.current {
+    color: #ff3399;
+    text-decoration: underline;
+  }
+
+  /* page views */
+  .page { display: none; padding: 0 12px; }
   .page.active { display: block; }
 
   .box {
@@ -102,8 +122,8 @@
       <li><a href="#credits">Credits</a></li>
     </ul>
   </nav>
- 
- <!-- HOMEPAGE -->
+
+  <!-- HOMEPAGE -->
   <section id="home" class="page">
     <h2>brapzillion</h2>
     <div class="box">
@@ -111,7 +131,7 @@
     </div>
   </section>
 
-  <!-- INFO ABOUT WEBSITE  -->
+  <!-- INFO ABOUT WEBSITE -->
   <section id="info" class="page">
     <h2>Brapzillion</h2>
   </section>
@@ -136,10 +156,31 @@
     <h2>Brapzillion</h2>
   </section>
 
+  <!-- CREDITS -->
+  <section id="credits" class="page">
+    <h2>Credits</h2>
+  </section>
+
   <!-- FORMS -->
   <div class="box">
     <h3>Brapzillion</h3>
   </div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const links = document.querySelectorAll('#navlinks a');
+
+  function showPage(id) {
+    const target = document.getElementById(id) || document.getElementById('home');
+
+    pages.forEach(p => p.classList.toggle('active', p === target));
+    links.forEach(a => a.classList.toggle('current', a.getAttribute('href') === '#' + target.id));
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener('hashchange', () => showPage(location.hash.slice(1)));
+  window.addEventListener('DOMContentLoaded', () => showPage(location.hash.slice(1)));
+</script>
 
 </body>
 </html>
